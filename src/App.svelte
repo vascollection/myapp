@@ -16,7 +16,7 @@
   let isChecked = false
   let changeStatus = []
 
-  let activeTabFilter = "tab1"
+  let activeTabFilter = "all"
 
 
   //ADD BUTTON
@@ -33,11 +33,17 @@
     return taskObjectID
   }
 
+  //REITERATE ARRAY | COMPLETED COUNTER
+  const reiterateArray = (x) => {
+    outputList = [...x]
+    completCount = outputList.filter(outputList => outputList.status === "completed").length
+  }
+
   //DELETE BUTTON
   const removeToList = (taskIndex) => {
     if (taskIndex !== -1) {
       outputList.splice(taskIndex, 1)
-      outputList = [...outputList]
+      reiterateArray(outputList)
     }
   }
 
@@ -57,7 +63,7 @@
         status: taskToEdit.status,
       }
       outputList.splice(indexToEdit, 1, taskToEdit)
-      outputList = [...outputList]
+      reiterateArray(outputList)
     }
     taskToEdit = ""
     newTask = ""
@@ -72,15 +78,12 @@
     if (changeStatus.status === "completed") {
       changeStatus.status = changeStatus.status = "active"
       completCount -= 1
-      console.log(changeStatus.status)
     } else {
       changeStatus.status = changeStatus.status = "completed"
       completCount += 1
-      console.log(changeStatus.status)
     }
     outputList.splice(changeStatus.index, changeStatus)
-    outputList = [...outputList]
-    console.log(outputList)
+    reiterateArray(outputList)
   }
 
   // CANCEL EDIT BUTTON
@@ -96,7 +99,6 @@
 
   //TABS FILTER
   const CheckStatus = (item) => {
-    // console.log(targetID(item).status)
     if (targetID(item).status === "active" && activeTabFilter === "active") {
       return "active"
     } else if (targetID(item).status === "completed" && activeTabFilter === "completed") {
@@ -105,6 +107,32 @@
       return "all"
     }
   }
+
+  //CHECK ALL BUTTON
+  const checkAll = () => {
+    if (outputList.length != 0){
+      let tempArray = outputList.filter( outputList => outputList.status === "active")
+        for (let i = 0; i <= tempArray.length; i++){
+          console.log(tempArray[i].id);
+          let change = tempArray[i].status = "comepleted"
+          // for(let j =0; j <=  tempArray[i].length; j++){
+            console.log(change);
+          }
+          
+          
+      
+      
+      
+
+        // if(arrayIndex ){
+        //  statusToChange.status = "completed"
+        //  reiterateArray(x)
+        //  console.log(outputList);
+        // }
+      // }
+    }
+  }
+  
 </script>
 
 <!--------------------------------------------------->
@@ -151,10 +179,10 @@
           {#each outputList as item, index (item)}
             {#if CheckStatus(item.id) === activeTabFilter}
               <tr class:checked={item.status === "completed"}>
-                <td><input type="checkbox" on:change={() => checkBox(item.id)} /></td>
+                <td><input type="checkbox" on:change={() => checkBox(item.id)} checked={item.status === "active" ? false : true} /></td>
                 <td class="taskContent">{item.task}</td>
                 <td class="col2">
-                  <button class="editHover" on:click={() => editItem(item.id, index)}
+                  <button class="editHover" on:click={() => editItem(item.id, index) }
                     ><svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
                       <path
                         d="M12.6463 3.865L13.9119 2.59938C14.4611 2.05021 15.3514 2.05021 15.9006 2.59938C16.4498 3.14856 16.4498 4.03894 15.9006 4.58812L7.93664 12.5521C7.54013 12.9486 7.05108 13.2401 6.51367 13.4002L4.5 14L5.09984 11.9863C5.25992 11.4489 5.55138 10.9599 5.94789 10.5634L12.6463 3.865ZM12.6463 3.865L14.625 5.84374M13.5 11V14.5625C13.5 15.4945 12.7445 16.25 11.8125 16.25H3.9375C3.00552 16.25 2.25 15.4945 2.25 14.5625V6.68749C2.25 5.75551 3.00552 4.99999 3.9375 4.99999H7.5"
@@ -178,6 +206,16 @@
                   >
                 </td>
               </tr>
+            {:else}
+              {#if activeTabFilter === "active"}
+              <tr>
+                <td>No active task available</td>
+              </tr>
+              {:else}
+              <tr>
+                <td>No task completed</td>
+              </tr>
+              {/if}
             {/if}
           {/each}
         {:else}
@@ -188,8 +226,8 @@
       </tbody>
     </table>
     <buttonGroup class="finish">
-      <button>Check all</button>
-      <button>Remove completed</button>
+        <button on:click={checkAll} >Check all</button>
+        <button>Remove completed</button>
     </buttonGroup>
   </div>
 </div>
