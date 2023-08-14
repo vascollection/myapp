@@ -1,0 +1,193 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+@import "variables";
+
+:root {
+  --white: #ffffff;
+  --primary: #171717;
+  --secondary: #737373;
+  --disabled: #dadada;
+  --gradient-blue: linear-gradient(
+    139deg,
+    #36bffa 0%,
+    #1570ef 47%,
+    #065986 100%
+  );
+  --gradient-orange: linear-gradient(
+    135deg,
+    #ff751b 0%,
+    #ff8e37 17.03%,
+    #f05306 100%
+  );
+  --shadow01: 0px 1.0515574216842651px 2.2138051986694336px 0px
+      rgba(0, 0, 0, 0.02),
+    0px 2.527038812637329px 5.32008171081543px 0px rgba(0, 0, 0, 0.03),
+    0px 4.758189678192139px 10.017241477966309px 0px rgba(0, 0, 0, 0.04),
+    0px 8.487797737121582px 17.869047164916992px 0px rgba(0, 0, 0, 0.04),
+    0px 15.87549114227295px 33.422088623046875px 0px rgba(0, 0, 0, 0.05),
+    0px 38px 80px 0px rgba(0, 0, 0, 0.07);
+}
+* {
+  margin: unset;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  color: var(--primary);
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-blue);
+    height: 100vh;
+  }
+}
+
+.container {
+  display: grid;
+  gap: 12px;
+  padding: 40px 48px;
+  margin: auto;
+  border-radius: 20px;
+  background-color: white;
+  border: 1px solid var(--disabled);
+
+  .heading {
+    text-align: center;
+    h1 {
+      font-size: 32px;
+      line-height: 48px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    p {
+      font-size: 18px;
+      line-height: 27px;
+      color: var(--secondary);
+    }
+  }
+
+  .input {
+    display: grid;
+    gap: 4px;
+    width: 480px;
+    input {
+      padding: 8px;
+      border: unset;
+      width: 100%;
+      border-bottom: 1px solid var(--disabled);
+      ::placeholder {
+        font-size: 16px;
+        font-weight: 300;
+        color: var(--disabled);
+      }
+    }
+    .buttonStyle {
+      padding: 8px;
+      font-size: 18px;
+      font-weight: 500;
+      text-transform: uppercase;
+      border-radius: 5px;
+      border: unset;
+      color: var(--white);
+      background: var(--gradient-orange);
+      :hover {
+        cursor: hand;
+      }
+    }
+  }
+  .output {
+    display: grid;
+    gap: 8px;
+    .heading {
+      display: flex;
+      justify-content: space-between;
+      align-content: center;
+      border-bottom: 1px solid var(--disabled);
+      .buttonGroup {
+        display: flex;
+        gap: 0;
+        button {
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+          padding: 4px 12px;
+          border: unset;
+          background: var(--white);
+          color: var(--disabled);
+          
+        }
+        .selected {
+          color: var(--primary) !important;
+          border-bottom: 2px solid #ff751b;
+        }
+      }
+      p {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--secondary);
+        display: flex;
+        align-self: center;
+      }
+    }
+    
+    table {
+      width: 100%;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--disabled);
+    }
+    tr {
+      display: flex;
+      width: 100%;
+      padding: 8px 0;
+      gap: 8px;
+    }
+    td {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--primary);
+    }
+    .taskContent {
+      width: 100%;
+    }
+    .col2 {
+      display: flex;
+      gap: 4px;
+      button {
+        background: unset;
+        border: unset;
+      }
+      .editHover:hover svg path {
+
+        stroke: #1570ef;
+      }
+      .deleteHover:hover svg path {
+
+        stroke: #d92d20;
+      }
+      :hover{
+        transform: scale(1.1);
+        transition: .2s ease-in-out;
+      }
+    }
+    
+
+    /* ---------------- */
+    .output {
+      display: grid;
+    }
+    .finish {
+      margin-top: 24px;
+    }
+    .checked {
+      .taskContent{
+        transition: 1s;
+        color: var(--disabled);
+        text-decoration-line: line-through;
+      }
+      .col2{
+        button svg path{
+            stroke: #dadada !important;
+        }
+      }
+    }
+  }
+}
