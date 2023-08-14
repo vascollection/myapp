@@ -89,20 +89,7 @@
   
   // FILTER
   const activeTab = (tab) => {
-    let activeTabFilter1 = tab
-    switch (activeTabFilter1){
-      case 'tab2':
-        // shyet = 'active'
-        return 'active'
-        // console.log('active');
-        break
-      case 'tab3' :
-        return 'completed'
-        // console.log('completed');
-        break
-      default:
-        return true
-    }
+    activeTabFilter = tab
   }
   
   const CheckStatus = (item) => {
@@ -149,9 +136,9 @@
   <div class="output">
     <div class="heading">
       <buttonGroup class="buttonGroup">
-        <button class:selected={activeTabFilter === 'tab1'} id="tab1" on:click={() => activeTab('tab1')}>All</button>
-        <button class:selected={activeTabFilter === 'tab2'} id="tab2" on:click={() => activeTab('tab2')}>Active</button>
-        <button class:selected={activeTabFilter === 'tab3'} id="tab3" on:click={() => activeTab('tab3')}>Completed</button>
+        <button class:selected={activeTabFilter === 'all'} id="tab1" on:click={() => activeTab('all')}>All</button>
+        <button class:selected={activeTabFilter === 'active'} id="tab2" on:click={() => activeTab('active')}>Active</button>
+        <button class:selected={activeTabFilter === 'completed'} id="tab3" on:click={() => activeTab('completed')}>Completed</button>
       </buttonGroup>
       <p>Task Completed: {completCount}</p>
     </div>
@@ -159,8 +146,8 @@
       <tbody>
         {#if outputList.length != 0}
           {#each outputList as item, index (item)}
-            {#if CheckStatus(item.id) === activeTab}
-              <tr class:checked={item.status == "completed" ? true : false}>
+            <!-- {#if CheckStatus(item.id) === activeTab} -->
+              <tr class:checked={item.status == activeTabFilter}>
                 <td><input type="checkbox" on:change={() => checkBox(item.id)}/></td>
                 <td class="taskContent">{item.task}</td>
                 <td class="col2">
@@ -202,7 +189,7 @@
                   >
                 </td>
               </tr>
-            {/if}
+            <!-- {/if} -->
           {/each}
         {:else}
           <tr>
