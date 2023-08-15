@@ -176,6 +176,7 @@
 }
 .container .output .taskContent {
   width: 100%;
+  word-wrap: anywhere;
 }
 .container .output .col2 {
   display: flex;
