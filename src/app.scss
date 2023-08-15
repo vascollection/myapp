@@ -6,26 +6,30 @@
   --primary: #171717;
   --secondary: #737373;
   --disabled: #dadada;
-  --gradient-blue: linear-gradient(
-    139deg,
-    #36bffa 0%,
-    #1570ef 47%,
-    #065986 100%
-  );
-  --gradient-orange: linear-gradient(
-    135deg,
-    #ff751b 0%,
-    #ff8e37 17.03%,
-    #f05306 100%
-  );
-  --shadow01: 0px 1.0515574216842651px 2.2138051986694336px 0px
-      rgba(0, 0, 0, 0.02),
+  --orange: #ff751b;
+  --gradient-blue: linear-gradient(139deg, #36bffa 0%, #1570ef 47%, #065986 100%);
+  --gradient-orange: linear-gradient(135deg, #ff751b 0%, #ff8e37 17.03%, #f05306 100%);
+  --gradient-orange-one: linear-gradient(135deg, #F05306 0%, #FF8E37 37.26%, #FF751B 100%);
+  --gradient-orange-two: linear-gradient(135deg, #f05306 0%, #ff8e37 85.51%, #ff751b 100%);
+
+  --shadow01: 0px 1.0515574216842651px 2.2138051986694336px 0px rgba(0, 0, 0, 0.02),
     0px 2.527038812637329px 5.32008171081543px 0px rgba(0, 0, 0, 0.03),
     0px 4.758189678192139px 10.017241477966309px 0px rgba(0, 0, 0, 0.04),
     0px 8.487797737121582px 17.869047164916992px 0px rgba(0, 0, 0, 0.04),
-    0px 15.87549114227295px 33.422088623046875px 0px rgba(0, 0, 0, 0.05),
-    0px 38px 80px 0px rgba(0, 0, 0, 0.07);
+    0px 15.87549114227295px 33.422088623046875px 0px rgba(0, 0, 0, 0.05), 0px 38px 80px 0px rgba(0, 0, 0, 0.07);
 }
+@keyframes buttonBackgroundAnimation {
+  0% {
+    background: var(--gradient-orange);
+  }
+  50% {
+    background: var(--gradient-orange-one);
+  }
+  100% {
+    background: var(--gradient-orange-two);
+  }
+}
+
 * {
   margin: unset;
   box-sizing: border-box;
@@ -73,13 +77,13 @@
       border: unset;
       width: 100%;
       border-bottom: 1px solid var(--disabled);
-      ::placeholder {
+      &::placeholder {
         font-size: 16px;
         font-weight: 300;
         color: var(--disabled);
       }
     }
-    .buttonStyle {
+    .buttonFill {
       padding: 8px;
       font-size: 18px;
       font-weight: 500;
@@ -88,8 +92,31 @@
       border: unset;
       color: var(--white);
       background: var(--gradient-orange);
-      :hover {
-        cursor: hand;
+      flex-grow: 1;
+      transition: .5s;
+      &:hover {
+        cursor: pointer;
+        // transform: scale(1.05);
+        // animation: buttonBackgroundAnimation .4s ease;
+        transition: .5s;
+        background: var(--gradient-orange-two);
+        
+      }
+    }
+    .action {
+      display: flex;
+      gap: 4px;
+      .buttonStroke {
+        @extend .buttonFill;
+        color: var(--secondary);
+        background: var(--white);
+        border: 1px solid var(--secondary);
+        &:hover {
+          background: var(--secondary);
+          color: var(--white);
+          box-shadow: unset;
+          transition: 0.4s;
+        }
       }
     }
   }
@@ -113,7 +140,7 @@
           border: unset;
           background: var(--white);
           color: var(--disabled);
-          
+          height: fit-content;
         }
         .selected {
           color: var(--primary) !important;
@@ -128,7 +155,7 @@
         align-self: center;
       }
     }
-    
+
     table {
       width: 100%;
       padding-bottom: 8px;
@@ -137,6 +164,7 @@
     tr {
       display: flex;
       width: 100%;
+      max-width: 480px;
       padding: 8px 0;
       gap: 8px;
     }
@@ -144,6 +172,7 @@
       font-size: 16px;
       font-weight: 400;
       color: var(--primary);
+      display: flex;
     }
     .taskContent {
       width: 100%;
@@ -156,19 +185,16 @@
         border: unset;
       }
       .editHover:hover svg path {
-
         stroke: #1570ef;
       }
       .deleteHover:hover svg path {
-
         stroke: #d92d20;
       }
-      :hover{
+      :hover {
         transform: scale(1.1);
-        transition: .2s ease-in-out;
+        transition: 0.2s ease-in-out;
       }
     }
-    
 
     /* ---------------- */
     .output {
@@ -176,16 +202,24 @@
     }
     .finish {
       margin-top: 24px;
+      justify-content: flex-end;
+      display: flex;
+      gap: 4px;
+      .optionalButton {
+        background: #e0e0e0;
+        border-radius: 4px;
+        color: var(--primary);
+      }
     }
     .checked {
-      .taskContent{
+      .taskContent {
         transition: 1s;
         color: var(--disabled);
         text-decoration-line: line-through;
       }
-      .col2{
-        button svg path{
-            stroke: #dadada !important;
+      .col2 {
+        button svg path {
+          stroke: #dadada !important;
         }
       }
     }

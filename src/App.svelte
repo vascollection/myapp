@@ -27,6 +27,13 @@
     }
   }
 
+  // PRESS ENTER TO ADD TASK
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      addToList();
+    }
+  }
+
   // TARGET ID
   const targetID = (item) => {
     let taskObjectID = outputList.find((i) => item === i.id)
@@ -44,6 +51,7 @@
     if (taskIndex !== -1) {
       outputList.splice(taskIndex, 1)
       reiterateArray(outputList)
+      
     }
   }
 
@@ -52,6 +60,8 @@
     indexToEdit = index
     taskToEdit = targetID(id)
     editCondition = true
+    newTask = taskToEdit.task
+
   }
 
   //SAVE EDIT BUTTON
@@ -95,6 +105,7 @@
   // FILTER
   const activeTab = (tab) => {
     activeTabFilter = tab
+    // emptyTab(activeTabFilter)
   }
 
   //TABS FILTER
@@ -112,27 +123,38 @@
   const checkAll = () => {
     if (outputList.length != 0){
       let tempArray = outputList.filter( outputList => outputList.status === "active")
-        for (let i = 0; i <= tempArray.length; i++){
-          console.log(tempArray[i].id);
-          let change = tempArray[i].status = "comepleted"
-          // for(let j =0; j <=  tempArray[i].length; j++){
-            console.log(change);
-          }
-          
-          
-      
-      
-      
-
-        // if(arrayIndex ){
-        //  statusToChange.status = "completed"
-        //  reiterateArray(x)
-        //  console.log(outputList);
-        // }
-      // }
+        for (let i = 0; i <= tempArray.length - 1; i++){
+          tempArray[i].status = "completed"
+        }
+      reiterateArray(outputList)
     }
   }
+
+  //REMOVE ALL COMPLETED TASKS BUTTON
+  const removeCompleted = () => {
+    let tempArray = outputList.filter(outputList => outputList.status !== "completed")
+    reiterateArray(tempArray)
+    console.log(outputList);
+    }
   
+
+  //EMPTY TAB DISPLAY
+  let emptyTabArray = ["No task completed", "No task available", " "]
+
+
+  // const emptyTab = (activeTabFilter) => {
+  //   let tempArray = outputList.filter(outputList => outputList.status === activeTabFilter)
+  //   if (tempArray.length != -1){
+  //     for(let i = 0; i <= tempArray.length -1; i++){
+  //       if (i === 0){
+  //         emptyTabDisplay = activeTabFilter === "active" ? emptyTabArray[2] : "testes"
+  //       }else{
+  //         emptyTabDisplay = emptyTabArray[2]
+  //       }
+  //     }
+  //   }
+    
+  // }
 </script>
 
 <!--------------------------------------------------->
@@ -148,14 +170,14 @@
     <div class="input">
       <input type="text" bind:value={newTask} />
       <div class="action">
-        <button class="buttonStyle" on:click={editTask} type="button">Save</button>
-        <button class="buttonStyle" on:click={cancelEdit}>Cancel</button>
+        <button class="buttonFill" on:click={editTask} type="button">Save</button>
+        <button class="buttonStroke" on:click={cancelEdit}>Cancel</button>
       </div>
     </div>
   {:else}
     <div class="input">
-      <input type="text" placeholder="Enter a task here" bind:value={inputValue} />
-      <button class="buttonStyle" on:click={addToList} type="button">Add task</button>
+      <input type="text" placeholder="Enter a task here" bind:value={inputValue} on:keydown={handleKeyPress}/>
+      <button class="buttonFill" on:click={addToList} type="button">Add task</button>
     </div>
   {/if}
 
@@ -206,16 +228,20 @@
                   >
                 </td>
               </tr>
-            {:else}
-              {#if activeTabFilter === "active"}
-              <tr>
-                <td>No active task available</td>
-              </tr>
+            <!-- {:else}
+              {#if activeTabFilter != "active"}
+                <tr>
+                  <td>{emptyTabArray[0]}</td>
+                </tr>
+              {:else}
+                <tr>
+                  <td>{emptyTabArray[1]}</td>
+                </tr>
+              {/if} -->
               {:else}
               <tr>
-                <td>No task completed</td>
+                <td> </td>
               </tr>
-              {/if}
             {/if}
           {/each}
         {:else}
@@ -226,8 +252,8 @@
       </tbody>
     </table>
     <buttonGroup class="finish">
-        <button on:click={checkAll} >Check all</button>
-        <button>Remove completed</button>
+        <button class="optionalButton" on:click={checkAll} >Check all</button>
+        <button class="optionalButton" on:click={removeCompleted}>Remove completed</button>
     </buttonGroup>
   </div>
 </div>
