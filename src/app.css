@@ -173,8 +173,11 @@
   display: flex;
   width: 100%;
   max-width: 480px;
-  padding: 8px 0;
+  padding: 8px 4px;
   gap: 8px;
+}
+.container .output tr:hover {
+  background-color: #f5f5f5;
 }
 .container .output td {
   font-size: 16px;
@@ -211,9 +214,13 @@
   gap: 4px;
 }
 .container .output .finish .optionalButton {
-  background: #e0e0e0;
+  color: var(--secondary);
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
   border-radius: 4px;
-  color: var(--primary);
+}
+.container .output .finish .optionalButton:hover {
+  background-color: #e0e0e0;
 }
 .container .output .checked .taskContent {
   transition: 1s;
