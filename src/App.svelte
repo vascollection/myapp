@@ -199,7 +199,6 @@
       <tbody>
         {#if outputList.length != 0}
           {#each outputList as item, index (item)}
-
             {#if CheckStatus(item.id) === activeTabFilter}
               <tr class:checked={item.status === "completed"}>
                 <td><input type="checkbox" on:change={() => checkBox(item.id)} checked={item.status === "active" ? false : true} /></td>
@@ -231,7 +230,7 @@
               </tr>
 
               {:else}
-              <tr>
+              <tr style="display: none;">
                 <td> </td>
               </tr>
             {/if}
