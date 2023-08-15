@@ -162,19 +162,6 @@
       padding-bottom: 8px;
       border-bottom: 1px solid var(--disabled);
 
-      &::-webkit-scrollbar {
-        width: 3px;
-      }
-    
-      &::-webkit-scrollbar-thumb {
-        background-color: #e0e0e0;
-        border-radius: 3px !important;
-      }
-    
-      &::-webkit-scrollbar-track {
-        background-color: #f5f5f5;
-      }
-
       tbody{
         border-collapse: collapse;
         scrollbar-width: 2px #e0e0e0;
@@ -242,4 +229,17 @@
       }
     }
   }
+}
+
+table::-webkit-scrollbar {
+  width: 3px;
+}
+
+table::-webkit-scrollbar-thumb {
+  background-color: #e0e0e0;
+  border-radius: 3px !important;
+}
+
+table::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
 }
