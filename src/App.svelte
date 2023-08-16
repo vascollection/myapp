@@ -33,6 +33,11 @@
       addToList();
     }
   }
+  const handleKeyPress01 = (event) => {
+    if (event.key === 'Enter') {
+      editTask();
+    }
+  }
 
   // TARGET ID
   const targetID = (item) => {
@@ -170,7 +175,7 @@
     <div class="input">
       <input type="text" bind:value={newTask} />
       <div class="action">
-        <button class="buttonFill" on:click={editTask} type="button">Save</button>
+        <button class="buttonFill" on:click={editTask} type="button" on:keydown={handleKeyPress01}>Save</button>
         <button class="buttonStroke" on:click={cancelEdit}>Cancel</button>
       </div>
     </div>
